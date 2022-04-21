@@ -1,0 +1,42 @@
+services:
+  venko:
+    container_name: 'venko'
+    image: thanhlong320/venko:latest
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+      MYSQL_URI: host.docker.internal:3306
+      MYSQL_DATABASE: venko
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - 8080:8080
+      - 9990:9990
+    networks:
+      - venko
+    depends_on:
+      - mysqldb
+  mysqldb:
+    container_name: 'db'
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: venko
+      MYSQL_USER: ntlong
+      MYSQL_PASSWORD: ntlong
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - 3306:3306
+    networks:
+      - venko    
+  venko-ui:
+    container_name: 'venko-ui'
+    image: thanhlong320/venko-ui:latest
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+    ports:
+      - 4200:80
+    networks:
+      - venko
+networks:
+  venko:
+    driver: bridge

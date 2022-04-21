@@ -1,0 +1,4 @@
+<li><a routerLink="items/{{item.id}}">
+                <input #menuItem type="text" value={{item.name}} readonly="true" (change)="updateItem($event)"
+                        onblur="this.readOnly='true';" ondblclick="this.readOnly='';">
+        </a></li>

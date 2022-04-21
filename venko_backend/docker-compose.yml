@@ -1,0 +1,29 @@
+services:
+  mysqldb:
+    container_name: 'db'
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: venko
+      MYSQL_USER: ntlong
+      MYSQL_PASSWORD: ntlong
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - 3306:3306
+    networks:
+      - venko
+    depence
+  mywildfly:
+    build:
+      context: ./
+    environment:
+      MYSQL_URI: host.docker.internal:3306
+      MYSQL_DATABASE: venko
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - 8080:8080
+      - 9990:9990
+    networks:
+      - venko
+networks:
+  venko:
+    driver: bridge
