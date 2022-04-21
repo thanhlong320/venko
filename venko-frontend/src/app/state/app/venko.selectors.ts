@@ -9,3 +9,8 @@ export interface State extends AppState.State {
 const itemSelector = createFeatureSelector<VenkoState>('app');
 
 export const getItems = createSelector(itemSelector, (state) => state.items);
+
+export const getItemActive = createSelector(
+  itemSelector,
+  (state) => state.activeItem
+);

@@ -4,10 +4,12 @@ import * as ItemsActions from '../item/item.actions';
 import * as TaskActions from '../task/task.actions';
 export interface VenkoState {
   items: Item[];
+  activeItem: string;
 }
 
 const initState: VenkoState = {
   items: [],
+  activeItem: '',
 };
 
 export const venkoReducer = createReducer<VenkoState>(
@@ -16,6 +18,12 @@ export const venkoReducer = createReducer<VenkoState>(
     return {
       ...state,
       items: action.items,
+    };
+  }),
+  on(ItemsActions.changeItemActive, (state, action): VenkoState => {
+    return {
+      ...state,
+      activeItem: action.itemId,
     };
   }),
   on(ItemsActions.updateItemSuccess, (state, action): VenkoState => {

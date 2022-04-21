@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Item } from 'src/app/core/model/item';
@@ -24,6 +24,18 @@ export class ItemDetailsComponent {
       this.itemId = this.route.snapshot.params['id'];
       this.getItem(this.itemId);
     });
+  }
+
+  updateItem(event: Event): void {
+    let input = event.target as HTMLInputElement;
+    let updatesItemName = input.value;
+    let updatedItemCode = updatesItemName.toLocaleLowerCase();
+    let updatedItem = {
+      ...this.item,
+      name: updatesItemName,
+      code: updatedItemCode,
+    };
+    this.store.dispatch(ItemActions.updateItem({ updatedItem }));
   }
 
   getItem(itemId: string) {

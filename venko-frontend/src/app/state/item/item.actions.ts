@@ -36,7 +36,9 @@ export const deleteItem = createAction(
   props<{ itemId: string }>()
 );
 
-export const deleteItemSuccess = createAction(
-  '[Item] Delete item success',
-);
+export const deleteItemSuccess = createAction('[Item] Delete item success');
 
+export const changeItemActive = createAction(
+  '[Item] Change Item Active',
+  props<{ itemId: string }>()
+);
